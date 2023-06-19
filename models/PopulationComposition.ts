@@ -1,27 +1,27 @@
-import { ChartData } from 'chart.js'
+import { ChartData } from 'chart.js';
 
 export class PopulationCompotisionData {
-  year: string
-  value: number
+  year: string;
+  value: number;
   constructor(year: string, value: number) {
-    this.year = year
-    this.value = value
+    this.year = year;
+    this.value = value;
   }
 }
 
 export class PopulationCompotision {
-  prefCode: string
-  label: string
-  dataList: PopulationCompotisionData[]
+  prefCode: string;
+  label: string;
+  dataList: PopulationCompotisionData[];
 
   constructor(
     prefCode: string,
     label: string,
     dataList: PopulationCompotisionData[]
   ) {
-    this.prefCode = prefCode
-    this.label = label
-    this.dataList = dataList
+    this.prefCode = prefCode;
+    this.label = label;
+    this.dataList = dataList;
   }
 
   /**
@@ -29,15 +29,15 @@ export class PopulationCompotision {
    * @returns chart.jsのChartData
    */
   get chartData(): ChartData {
-    const labels = []
-    const data = []
+    const labels = [];
+    const data = [];
     for (const populationData of this.dataList) {
-      labels.push(populationData.year)
-      data.push(populationData.value)
+      labels.push(populationData.year);
+      data.push(populationData.value);
     }
     return {
       labels,
       datasets: [{ label: this.label, backgroundColor: '#A855F7', data }],
-    }
+    };
   }
 }

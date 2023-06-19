@@ -34,13 +34,14 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'nuxt-property-decorator'
+import DropDownItem from '~/models/DropDownItem'
 
 @Component({
   name: 'DropDownList',
 })
 export default class DropDownList extends Vue {
   @Prop({ required: true })
-  options: [{ value: number; label: string }] | undefined
+  options: [DropDownItem] | undefined
 
   @Prop()
   selectedValue: number | undefined

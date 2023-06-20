@@ -53,7 +53,7 @@ export default class Index extends Vue {
   selectedPrefecture!: number;
 
   isLoadingChartData = true;
-  loading = true;
+
   async asyncData() {
     // 初期表示は東京都(13)
     const selectedPrefecture = 13;

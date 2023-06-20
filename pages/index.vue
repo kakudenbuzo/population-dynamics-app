@@ -13,7 +13,7 @@
       />
     </div>
     <BarChartCard
-      :is-loading="isLodingChartData"
+      :is-loading="isLoadingChartData"
       :chart-data="populationComposition?.chartData"
       :label="populationComposition?.label"
     ></BarChartCard>
@@ -52,7 +52,7 @@ export default class Index extends Vue {
 
   selectedPrefecture!: number;
 
-  isLodingChartData = true;
+  isLoadingChartData = true;
   loading = true;
   async asyncData() {
     // 初期表示は東京都(13)
@@ -74,7 +74,7 @@ export default class Index extends Vue {
     const populationCompositionList =
       await populationRepository.fetchByPrefCode(this.selectedPrefecture);
     this.populationComposition = populationCompositionList[0];
-    this.isLodingChartData = false;
+    this.isLoadingChartData = false;
   }
 
   handlePrefectureChange(value: number) {

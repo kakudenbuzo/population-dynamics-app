@@ -41,7 +41,7 @@ import DropDownItem from '~/models/DropDownItem'
 })
 export default class DropDownList extends Vue {
   @Prop({ required: true })
-  options: [DropDownItem] | undefined
+  options: DropDownItem[] | undefined
 
   @Prop()
   selectedValue: number | undefined

@@ -10,12 +10,12 @@ export class PopulationCompotisionData {
 }
 
 export class PopulationCompotision {
-  prefCode: string;
+  prefCode: number;
   label: string;
   dataList: PopulationCompotisionData[];
 
   constructor(
-    prefCode: string,
+    prefCode: number,
     label: string,
     dataList: PopulationCompotisionData[]
   ) {
@@ -32,6 +32,7 @@ export class PopulationCompotision {
     const labels = [];
     const data = [];
     for (const populationData of this.dataList) {
+      if (Number(populationData.year) > 2000) break;
       labels.push(populationData.year);
       data.push(populationData.value);
     }

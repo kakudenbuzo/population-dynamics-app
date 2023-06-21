@@ -17,6 +17,11 @@ export class PopulationCompotisionData {
 }
 
 export class PopulationCompotision {
+  // 表示するデータの年の下限
+  static readonly MIN_YEAR = 1980;
+  // 表示するデータの年の上限
+  static readonly MAX_YEAR = 2000;
+
   prefCode: number;
   label: string;
   dataList: PopulationCompotisionData[];
@@ -39,7 +44,9 @@ export class PopulationCompotision {
     const labels = [];
     const data = [];
     for (const populationData of this.dataList) {
-      if (Number(populationData.year) > 2000) break;
+      if (Number(populationData.year) < PopulationCompotision.MIN_YEAR)
+        continue;
+      if (Number(populationData.year) > PopulationCompotision.MAX_YEAR) break;
       labels.push(populationData.year);
       data.push(populationData.value);
     }

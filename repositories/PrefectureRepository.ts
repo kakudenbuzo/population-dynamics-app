@@ -16,7 +16,7 @@ export default class PrefectureRepository {
       }
       return prefectures;
     } catch (error) {
-      return [];
+      throw new Error('サーバーでエラーが発生し、データの取得に失敗しました');
     }
   }
 }

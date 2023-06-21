@@ -39,6 +39,6 @@ export default class PrefectureRepository {
         populationCompotisionDataList
       );
     }
-    throw new Error('データ取得に失敗しました。');
+    throw new Error('サーバーでエラーが発生し、データの取得に失敗しました');
   }
 }

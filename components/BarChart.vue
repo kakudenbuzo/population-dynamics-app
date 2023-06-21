@@ -1,8 +1,8 @@
 <script lang="ts">
 // eslint-disable-next-line import/named
-import { Bar } from 'vue-chartjs'
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import { ChartData } from 'chart.js'
+import { Bar } from 'vue-chartjs';
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import { ChartData } from 'chart.js';
 @Component({
   components: {},
   extends: Bar,
@@ -13,10 +13,10 @@ export default class BarChart extends Vue {
     required: true,
     default: {},
   })
-  chartData!: ChartData
+  chartData!: ChartData;
 
   mounted() {
-    this.renderLineChart()
+    this.renderLineChart();
   }
 
   renderLineChart() {
@@ -37,7 +37,7 @@ export default class BarChart extends Vue {
       legend: {
         display: false,
       },
-    })
+    });
   }
 }
 </script>

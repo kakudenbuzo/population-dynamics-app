@@ -70,15 +70,21 @@ export default class Index extends Vue {
   }
 
   async created() {
+    await this.loadPopulationComposition();
+  }
+
+  handlePrefectureChange(value: number) {
+    this.selectedPrefecture = value;
+    this.loadPopulationComposition();
+  }
+
+  async loadPopulationComposition() {
+    this.isLoadingChartData = true;
     const populationRepository = new PopulationCompositionRepository();
     const populationCompositionList =
       await populationRepository.fetchByPrefCode(this.selectedPrefecture);
     this.populationComposition = populationCompositionList[0];
     this.isLoadingChartData = false;
-  }
-
-  handlePrefectureChange(value: number) {
-    this.selectedPrefecture = value;
   }
 }
 </script>

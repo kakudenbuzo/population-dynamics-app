@@ -16,6 +16,7 @@
     <BarChartCard
       :is-loading="isLoadingChartData"
       :chart-data="populationComposition?.chartData"
+      :options-data="populationComposition?.chartOptionData"
       :title="chartTitle"
     ></BarChartCard>
   </main>

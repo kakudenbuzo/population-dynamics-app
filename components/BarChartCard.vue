@@ -3,14 +3,18 @@
     class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
   >
     <h2 class="text-xl mb-4">{{ title }}</h2>
-    <BarChart v-if="!isLoading" :chart-data="chartData"></BarChart>
+    <BarChart
+      v-if="!isLoading"
+      :chart-data="chartData"
+      :options-data="optionsData"
+    ></BarChart>
     <div v-else class="height-bar-chart flex justify-center items-center">
       <ProgressSpinner></ProgressSpinner>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { ChartData } from 'chart.js';
+import { ChartData, ChartOptions } from 'chart.js';
 import { Component, Prop, Vue } from 'nuxt-property-decorator';
 import ProgressSpinner from './ProgressSpinner.vue';
 import BarChart from '~/components/BarChart.vue';
@@ -21,6 +25,9 @@ import BarChart from '~/components/BarChart.vue';
 export default class BarChartCard extends Vue {
   @Prop()
   chartData: ChartData | undefined;
+
+  @Prop()
+  optionsData: ChartOptions | undefined;
 
   @Prop()
   title: string | undefined;

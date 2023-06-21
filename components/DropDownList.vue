@@ -33,22 +33,22 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'nuxt-property-decorator'
-import DropDownItem from '~/models/DropDownItem'
+import { Component, Prop, Vue } from 'nuxt-property-decorator';
+import DropDownItem from '~/models/DropDownItem';
 
 @Component({
   name: 'DropDownList',
 })
 export default class DropDownList extends Vue {
   @Prop({ required: true })
-  options: DropDownItem[] | undefined
+  options: DropDownItem[] | undefined;
 
   @Prop()
-  selectedValue: number | undefined
+  selectedValue: number | undefined;
 
   onChange(event: Event) {
     // @ts-ignore
-    this.$emit('change', event.target!.value)
+    this.$emit('change', event.target!.value);
   }
 }
 </script>

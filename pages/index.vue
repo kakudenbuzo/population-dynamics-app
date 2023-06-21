@@ -10,12 +10,13 @@
       <DropDownList
         :options="populationTypes"
         :selected-value="selectedPopulationType"
+        @change="handlePopulationTypeChange"
       />
     </div>
     <BarChartCard
       :is-loading="isLoadingChartData"
       :chart-data="populationComposition?.chartData"
-      :label="populationComposition?.label"
+      :title="chartTitle"
     ></BarChartCard>
   </main>
 </template>
@@ -23,9 +24,11 @@
 <script lang="ts">
 import { Component, Vue } from 'nuxt-property-decorator';
 import BarChartCard from '~/components/BarChartCard.vue';
-import { PopulationCompotision } from '~/models/PopulationComposition';
+import {
+  PopulationCompotision,
+  PopulationType,
+} from '~/models/PopulationComposition';
 import DropDownList from '~/components/DropDownList.vue';
-import { PopulationType } from '~/models/PopulationType';
 import PrefectureRepository from '~/repositories/PrefectureRepository';
 import DropDownItem from '~/models/DropDownItem';
 import PopulationCompositionRepository from '~/repositories/PopulationCompositionRepository';
@@ -38,7 +41,11 @@ import PopulationCompositionRepository from '~/repositories/PopulationCompositio
 })
 export default class Index extends Vue {
   prefectureItems: DropDownItem[] = [];
-  populationComposition: PopulationCompotision | undefined;
+  populationComposition: PopulationCompotision = new PopulationCompotision(
+    0,
+    '',
+    []
+  );
 
   populationTypes = [
     { value: PopulationType.Total, label: PopulationType.Total },
@@ -78,13 +85,30 @@ export default class Index extends Vue {
     this.loadPopulationComposition();
   }
 
+  handlePopulationTypeChange(value: PopulationType) {
+    this.selectedPopulationType = value;
+    this.loadPopulationComposition();
+  }
+
   async loadPopulationComposition() {
     this.isLoadingChartData = true;
     const populationRepository = new PopulationCompositionRepository();
-    const populationCompositionList =
-      await populationRepository.fetchByPrefCode(this.selectedPrefecture);
-    this.populationComposition = populationCompositionList[0];
+    this.populationComposition =
+      await populationRepository.fetchByPrefCodeAndPopulationType(
+        this.selectedPrefecture,
+        this.selectedPopulationType
+      );
+
     this.isLoadingChartData = false;
+  }
+
+  get chartTitle() {
+    const selectedPrefecture = DropDownItem.getItemFromListByValue(
+      this.prefectureItems,
+      this.selectedPrefecture
+    );
+
+    return selectedPrefecture?.label + 'の' + this.selectedPopulationType;
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div
     class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100"
   >
-    <h2 class="text-xl mb-4">{{ label }}</h2>
+    <h2 class="text-xl mb-4">{{ title }}</h2>
     <BarChart v-if="!isLoading" :chart-data="chartData"></BarChart>
     <div v-else class="height-bar-chart flex justify-center items-center">
       <ProgressSpinner></ProgressSpinner>
@@ -23,7 +23,7 @@ export default class BarChartCard extends Vue {
   chartData: ChartData | undefined;
 
   @Prop()
-  label: string | undefined;
+  title: string | undefined;
 
   @Prop({ required: true, default: true })
   isLoading!: boolean;

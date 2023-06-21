@@ -2,6 +2,7 @@ import api from './api';
 import {
   PopulationCompotision,
   PopulationCompotisionData,
+  PopulationType,
 } from '~/models/PopulationComposition';
 
 interface Response {
@@ -11,13 +12,18 @@ interface Response {
   };
 }
 export default class PrefectureRepository {
-  async fetchByPrefCode(prefCode: number): Promise<PopulationCompotision[]> {
+  async fetchByPrefCodeAndPopulationType(
+    prefCode: number,
+    populationType: PopulationType
+  ): Promise<PopulationCompotision> {
     const res = await api.get<Response>(
       `population/composition/perYear?prefCode=${prefCode}`
     );
+
     const dataList = res.data.result.data;
-    const result = [];
+
     for (const data of dataList) {
+      if (data.label !== populationType) continue;
       const compositionDataList = data.data;
       const populationCompotisionDataList = [];
       for (const compositionData of compositionDataList) {
@@ -27,14 +33,12 @@ export default class PrefectureRepository {
         );
         populationCompotisionDataList.push(populationCompotisionData);
       }
-      result.push(
-        new PopulationCompotision(
-          prefCode,
-          data.label,
-          populationCompotisionDataList
-        )
+      return new PopulationCompotision(
+        prefCode,
+        data.label,
+        populationCompotisionDataList
       );
     }
-    return result;
+    throw new Error('データ取得に失敗しました。');
   }
 }

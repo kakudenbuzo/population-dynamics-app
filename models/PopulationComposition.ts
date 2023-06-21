@@ -1,5 +1,12 @@
 import { ChartData } from 'chart.js';
 
+export enum PopulationType {
+  Total = '総人口',
+  Youth = '年少人口',
+  WorkingAge = '生産年齢人口',
+  Elderly = '老年人口',
+}
+
 export class PopulationCompotisionData {
   year: string;
   value: number;

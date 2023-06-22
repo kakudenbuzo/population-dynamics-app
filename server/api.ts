@@ -8,7 +8,7 @@ const api = axios.create({
 
 api.defaults.headers.common['X-API-KEY'] = process.env.API_KEY;
 
-export default async function (req, res, _next) {
+export default async function (req: any, res: any, _next: any) {
   try {
     // APIエンドポイントのパスを取得
     const path = req.originalUrl;

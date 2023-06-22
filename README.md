@@ -1,68 +1,65 @@
 # population-dynamics-app
 
-## Build Setup
+## 挙動が確認できるURL
+- https://population-dynamics-app.vercel.app/
 
-```bash
-# install dependencies
-$ npm install
+## 作業時間
+- 総作業時間: 約**10時間**
+  - 調査:３時間
+  - コーディング:4時間
+  - デプロイ作業:3時間
+ 
+## 工夫したポイント
+### 1. グラフの目盛り幅を動的に決定
+縦軸の目盛り幅を各グラフの最大値の10分の1になるように、グラフごとに計算を行った。
+これにより、グラフごとに最適化された目盛り幅にでき、グラフの見やすくしている。
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+### 2.グラフ数値の視認性
+グラフに表示する数値をRESAS(地域経済分析システム) APIの返却値をそのまま使うのではなく、
+三桁ごとにカンマを入れたり、必要に応じて漢字(万など)に置き換えることで視認性を高めた。
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+### ３. API KEYの保護
+API KEYは、環境変数で定義しソースコード上からは確認できないようにした。
+また、クライアント側からも隠蔽されるように設定しAPIの実行はサーバーミドルウェアを使ってサーバーサイドで
+行われるように設定した。
 
-# generate static project
-$ npm run generate
+## 開発環境
+
+- 使用言語: TypeScript
+- フレームワーク: Nuxt.js(v2系)
+- テストフレームワーク: Jest
+- エディタ: VSCode
+- リンター: Prettier,ESLint
+
+### 環境構築手順
+#### 1. Node.jsのインストール
+https://nodejs.org/en から最新版のLTSをインストール
+
+#### 2. リポジトリのクローン
+任意のディレクトリで以下を実行し、プロジェクトをクローンする。
+
 ```
+git clone https://github.com/kakudenbuzo/population-dynamics-app.git
+```
+#### 3. パッケージインストール
+プロジェクトのルートに移動し、`npm ci`を実行
+```
+cd population-dynamics-app
+npm ci
+```
+#### 4. envファイルの作成
+プロジェクトのルートに`.env.development`を作成する。
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+項目は`.env.example`を参考にする。
 
-## Special Directories
+`HOST_NAME`は`http://localhost:3000`を設定する。
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+`API_KEY`は[RESAS関連サービス利用登録](https://opendata.resas-portal.go.jp/form.html)から利用登録を行い発行されたものを設定する。
 
-### `assets`
+#### 5. ローカルでのアプリ起動
+上記を全て行った後、プロジェクトルート上で下記のコマンドを実行する。
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
-
-### `pages`
-
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
-
-### `plugins`
-
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
-
-### `static`
-
-This directory contains your static files. Each file inside this directory is mapped to `/`.
-
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+```
+npm run dev
+```
+http://localhost:3000 にアクセスし、画面が正常に表示されれば環境構築完了。
